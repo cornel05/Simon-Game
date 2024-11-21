@@ -1,3 +1,14 @@
+// Function to change h1 text based on screen size
+function updateTitleForSmallScreens() {
+  if (window.outerWidth <= 768) { // Tablets and phones
+    $("h1").text("Tap anywhere to start");
+  } else {
+    $("h1").text("Press A Key to Start");
+  }
+}
+
+$(document).ready(updateTitleForSmallScreens);
+$(document).resize(updateTitleForSmallScreens);
 
 var buttonColours = ["red", "blue", "green", "yellow"];
 
@@ -7,13 +18,22 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 
-$(document).keypress(function() {
+$(document).on("touchstart", function() {
   if (!started) {
     $("#level-title").text("Level " + level);
     nextSequence();
     started = true;
   }
 });
+
+$(document).on("keypress", function() {
+  if (!started) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
+  }
+});
+
 
 $(".btn").click(function() {
 
